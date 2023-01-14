@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "./CitiesMatchMaking-viz/static/css/main.96491e77.css",
+    "main.js": "./CitiesMatchMaking-viz/static/js/main.5ff20992.js",
+    "index.html": "./CitiesMatchMaking-viz/index.html",
+    "main.96491e77.css.map": "./CitiesMatchMaking-viz/static/css/main.96491e77.css.map",
+    "main.5ff20992.js.map": "./CitiesMatchMaking-viz/static/js/main.5ff20992.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.96491e77.css",
+    "static/js/main.5ff20992.js"
+  ]
+}
