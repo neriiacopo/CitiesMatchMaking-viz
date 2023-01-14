@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "./CitiesMatchMaking-viz/gh-pages/static/css/main.96491e77.css",
-    "main.js": "./CitiesMatchMaking-viz/gh-pages/static/js/main.5ff20992.js",
-    "index.html": "./CitiesMatchMaking-viz/gh-pages/index.html",
-    "main.96491e77.css.map": "./CitiesMatchMaking-viz/gh-pages/static/css/main.96491e77.css.map",
-    "main.5ff20992.js.map": "./CitiesMatchMaking-viz/gh-pages/static/js/main.5ff20992.js.map"
+    "main.css": "./gh-pages/static/css/main.96491e77.css",
+    "main.js": "./gh-pages/static/js/main.5ff20992.js",
+    "index.html": "./gh-pages/index.html",
+    "main.96491e77.css.map": "./gh-pages/static/css/main.96491e77.css.map",
+    "main.5ff20992.js.map": "./gh-pages/static/js/main.5ff20992.js.map"
   },
   "entrypoints": [
     "static/css/main.96491e77.css",
