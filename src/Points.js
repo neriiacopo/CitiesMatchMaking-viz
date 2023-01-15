@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { Html, Text } from "@react-three/drei";
 import { presetsObj } from "@react-three/drei/helpers/environment-assets";
 
-export default function Points() {
+export default function Points(layer) {
     const [points, setPoints] = useState([]);
     const [textures, setTextures] = useState([]);
     const [db, setDb] = useState([]);
 
     async function getJSON() {
         // Clean fetching API
-        const response = await fetch("./json/Built_3D.json");
+        const response = await fetch("./json/" + layer + "_3D.json");
         const result = await response.json();
 
         const db = [];
