@@ -13,12 +13,12 @@ body,
 
 .label > div {
     font-family: Poppins;
-    font-size: 20px;
+    /* font-size: 8px; */
     position: absolute;
-    background: #00000088;
+    background: #000000;
     color: white;
-    padding: 15px;
-    border-radius: 30px;
+    /* padding: 1px 3px; */
+    /* border-radius: 1px; */
     white-space: nowrap;
     overflow: hidden;
     user-select: none;
@@ -42,4 +42,9 @@ body,
     bottom: 75px;
     right: 150px;
     z-index: 99;
+}
+
+#leva__root > * {
+    top: 50px;
+    right: 100px;
 }

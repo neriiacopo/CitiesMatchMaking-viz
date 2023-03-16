@@ -1,9 +1,12 @@
 import * as THREE from "three";
-import { useEffect, useState } from "react";
-import { Html, Text } from "@react-three/drei";
+import { useLayoutEffect, useState, useMemo } from "react";
+import { Html } from "@react-three/drei";
+import { useStore } from "./store/useStore.jsx";
 
-export default function Points({ layer = "built", size = 1, label = false }) {
+export default function Points({ layer = "built", size = 1 }) {
     const [db, setDb] = useState([]);
+
+    const active = useStore((state) => state.active);
 
     async function getJSON() {
         // Clean fetching API
@@ -41,58 +44,49 @@ export default function Points({ layer = "built", size = 1, label = false }) {
         setDb(db);
     }
 
-    useEffect(() => {
+    const fontSize = useMemo(() => size * 8 + "px", [size]);
+
+    useLayoutEffect(() => {
         getJSON();
     }, [layer]);
 
     return (
         <>
-            <group>
-                {db.map(function f(obj, index) {
-                    return (
-                        <sprite
-                            key={obj.id}
-                            position={obj.point}
-                            scale={size}
-                        >
-                            <spriteMaterial map={obj.texture} />
-                            {label && (
-                                <Html
-                                    position={[0, 0, 0]}
-                                    wrapperClass="label"
-                                    center
-                                    distanceFactor={8}
-                                >
-                                    {obj.name}
-                                </Html>
-                            )}
-                        </sprite>
-                    );
-                })}
-            </group>
+            {db.map(function f(obj, index) {
+                return (
+                    <sprite
+                        key={obj.id}
+                        position={obj.point}
+                        scale={size}
+                        name={obj.name}
+                    >
+                        <spriteMaterial map={obj.texture} />
+                        {obj.name == active && (
+                            <Html
+                                // position={[0, -size / 2, 0]}
+                                position={[0, 0, 0]}
+                                wrapperClass="label"
+                                center
+                                distanceFactor={8}
+                                style={{
+                                    fontSize: fontSize,
+                                    padding:
+                                        1 * size +
+                                        "px " +
+                                        3 * size +
+                                        "px " +
+                                        1 * size +
+                                        "px " +
+                                        3 * size +
+                                        "px",
+                                }}
+                            >
+                                {obj.name}
+                            </Html>
+                        )}
+                    </sprite>
+                );
+            })}
         </>
     );
-}
-
-{
-    /* 
-                        <mesh
-                            key={obj.id}
-                            position={obj.point}
-                            scale={size}
-                        >
-                            <planeGeometry args={[1, 1]} />
-                            <meshBasicMaterial map={obj.texture} />
-
-                            {label && (
-                                <Html
-                                    position={[0, 0, 0]}
-                                    wrapperClass="label"
-                                    center
-                                    distanceFactor={8}
-                                >
-                                    {obj.name}
-                                </Html>
-                            )}
-                        </mesh> */
 }

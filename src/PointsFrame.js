@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { useEffect, useState } from "react";
-import { Html, Text } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 
 export default function Points({ layer = "built", size = 1, label = false }) {
     const [db, setDb] = useState([]);
@@ -50,32 +50,6 @@ export default function Points({ layer = "built", size = 1, label = false }) {
             <group>
                 {db.map(function f(obj, index) {
                     return (
-                        <sprite
-                            key={obj.id}
-                            position={obj.point}
-                            scale={size}
-                        >
-                            <spriteMaterial map={obj.texture} />
-                            {label && (
-                                <Html
-                                    position={[0, 0, 0]}
-                                    wrapperClass="label"
-                                    center
-                                    distanceFactor={8}
-                                >
-                                    {obj.name}
-                                </Html>
-                            )}
-                        </sprite>
-                    );
-                })}
-            </group>
-        </>
-    );
-}
-
-{
-    /* 
                         <mesh
                             key={obj.id}
                             position={obj.point}
@@ -89,10 +63,15 @@ export default function Points({ layer = "built", size = 1, label = false }) {
                                     position={[0, 0, 0]}
                                     wrapperClass="label"
                                     center
-                                    distanceFactor={8}
+                                    // distanceFactor={8}
                                 >
                                     {obj.name}
                                 </Html>
                             )}
-                        </mesh> */
+                        </mesh>
+                    );
+                })}
+            </group>
+        </>
+    );
 }

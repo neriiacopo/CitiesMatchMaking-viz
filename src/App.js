@@ -1,11 +1,9 @@
-import { OrbitControls } from "@react-three/drei";
-import { useControls, buttonGroup, Leva } from "leva";
-import { useEffect, useState } from "react";
+import { OrbitControls, Bounds, useBounds } from "@react-three/drei";
+import { levaStore, useControls } from "leva";
 import PointsSprite from "./PointsSprite.js";
-import PointsFrame from "./PointsFrame.js";
+import { useStore } from "./store/useStore.jsx";
 
 export default function App() {
-    // Settings for GUI
     const layer = useControls({
         layer: {
             value: "built",
@@ -22,30 +20,69 @@ export default function App() {
     const size = useControls("", {
         size: {
             value: 1,
-            min: 0,
-            max: 2,
+            min: 0.3,
+            max: 1,
         },
     });
-    const label = useControls("", { label: false });
+    // const label = useControls("", { label: false });
 
     return (
         <>
-            <OrbitControls />
-            {/* <directionalLight
-                position={[1, 2, 3]}
-                intensity={1.5}
-            />
-            <ambientLight intensity={0.5} /> */}
-            <PointsSprite
-                layer={layer.layer}
-                size={size.size}
-                label={label.label}
-            />
-            {/* <PointsFrame
-                layer={layer.layer}
-                size={size.size}
-                label={label.label}
-            /> */}
+            <OrbitControls makeDefault />
+            <Bounds
+                fit
+                clip
+                observe
+                margin={1}
+            >
+                <SelectToZoom levaActive={layer.layer}>
+                    <PointsSprite
+                        layer={layer.layer}
+                        size={size.size}
+                    />
+                </SelectToZoom>
+            </Bounds>
         </>
+    );
+}
+
+function SelectToZoom({ children }) {
+    const api = useBounds();
+
+    // // Settings for GUI
+    // const active = useControls({
+    //     city: {
+    //         value: "",
+    //         onChange: (v) => {
+    //             console.log(children);
+    //             // e.object.name == v && api.refresh(e.object).fit();
+
+    //             // useStore.setState({ active: e.object.name });
+    //             // console.log(levaStore.state);
+    //         },
+    //     },
+    // });
+
+    const handleClick = (e) => {
+        e.stopPropagation();
+        e.delta <= 2 && api.refresh(e.object).fit();
+
+        useStore.setState({ active: e.object.name });
+        console.log(levaStore.state);
+    };
+
+    const handleMiss = (e) => {
+        e.button === 0 && api.refresh().fit();
+
+        useStore.setState({ active: "" });
+    };
+
+    return (
+        <group
+            onClick={handleClick}
+            onPointerMissed={handleMiss}
+        >
+            {children}
+        </group>
     );
 }
